@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Login</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport" />
+    <!-- Bootstrap 3.3.6 -->
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" />
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css" />
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/dist/css/AdminLTE.min.css" />
+
+    <style>
+        .login-box {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 400px;
+            border: 2px solid #3498db;
+            border-radius: 10px;
+            padding: 50px;
+            background-color: #f8f8f8;
+        }
+        .login-logo {
+            text-align: center;
+            display: block;
+            margin-top: 80px;
+
+        }
+        body{
+            background-color: #66512c;
+        }
+    </style>
+</head>
+<div class="login-logo">
+    <a href="#"><b>CAR RENTAL SYSTEM</b></a>
+    <br/>
+</div>
+<body class="hold-transition login-page">
+<div class="login-box">
+    <div class="login-logo">
+        <a href="#"><b>LOGIN HERE</b></a>
+    </div>
+    <!-- /.login-logo -->
+    <div class="login-box-body">
+         <br/><br/>
+        <div th:if="${param.error}">
+            <div class="alert alert-danger">
+                Invalid username and password.
+            </div>
+        </div>
+        <div th:if="${param.logout}">
+            <div class="alert alert-info">
+                You have been logged out.
+            </div>
+        </div>
+        <form th:action="@{/login}" method="post">
+            <div class="form-group has-feedback">
+                <input type="email" class="form-control" name="username" required placeholder="Email">
+                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+            </div>
+            <div class="form-group has-feedback">
+                <input type="password" class="form-control" name="password" required placeholder="Password">
+                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+            </div>
+            <div class="row">
+                <div class="col-xs-8">
+                    <!-- <div class="checkbox icheck">
+                         <label>
+                             <input type="checkbox"> Remember Me
+                         </label>
+                     </div>-->
+                </div>
+                <!-- /.col -->
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+                </div>
+                <!-- /.col -->
+            </div>
+        </form>
+
+        <a th:href="@{/register}" class="text-center">Register a new membership</a>
+
+    </div>
+    <!-- /.login-box-body -->
+</div>
+<!-- /.login-box -->
+
+
+<!-- jQuery 2.2.0 -->
+<script src="/plugins/jQuery/jQuery-2.2.0.min.js"></script>
+
+</body>
+</html>

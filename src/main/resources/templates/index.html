@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Car Rental System</title>
+	<link rel="stylesheet"
+		  href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+		  integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+		  crossorigin="anonymous">
+</head>
+<body>
+<div class="container my-2">
+	<h1>Cars List</h1>
+
+	<a th:href="@{/showNewCarForm}" class="btn btn-primary btn-sm mb-3"> Add Car </a>
+
+	<table border="1" class="table table-striped table-responsive-md">
+		<thead>
+		<tr>
+			<th>
+				<a th:href="@{'/page/' + ${currentPage} + '?sortField=carName&sortDir=' + ${reverseSortDir}}">
+					Car Name</a>
+			</th>
+			<th>
+				<a th:href="@{'/page/' + ${currentPage} + '?sortField=carPlateNumber&sortDir=' + ${reverseSortDir}}">
+					Car Plate Number</a>
+			</th>
+			<th>
+				<a th:href="@{'/page/' + ${currentPage} + '?sortField=status&sortDir=' + ${reverseSortDir}}">
+					Status</a>
+			</th>
+			<th>
+				<a th:href="@{'/page/' + ${currentPage} + '?sortField=serviceFee&sortDir=' + ${reverseSortDir}}">
+					Service Fee</a>
+			</th>
+			<th>
+				<a th:href="@{'/page/' + ${currentPage} + '?sortField=customerName&sortDir=' + ${reverseSortDir}}">
+					Customer Name</a>
+			</th>
+			<th> Actions </th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr th:each="car : ${listCars}">
+			<td th:text="${car.carName}"></td>
+			<td th:text="${car.carPlateNumber}"></td>
+			<td th:text="${car.status}"></td>
+			<td th:text="${car.serviceFee}"></td>
+			<td th:text="${car.customerName}"></td>
+			<td>
+				<a th:href="@{/showFormForUpdate/{id}(id=${car.id})}" class="btn btn-primary">Update</a>
+				<a th:href="@{/deleteCar/{id}(id=${car.id})}" class="btn btn-danger">Delete</a>
+			</td>
+		</tr>
+		</tbody>
+	</table>
+
+	<div th:if="${totalPages > 1}">
+		<div class="row col-sm-10">
+			<div class="col-sm-2">
+				Total Rows: [[${totalItems}]]
+			</div>
+			<div class="col-sm-1">
+                <span th:each="i: ${#numbers.sequence(1, totalPages)}">
+                    <a th:if="${currentPage != i}"
+					   th:href="@{'/page/' + ${i} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
+                    <span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp; &nbsp;
+                </span>
+			</div>
+			<div class="col-sm-1">
+				<a th:if="${currentPage < totalPages}"
+				   th:href="@{'/page/' + ${currentPage + 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Next</a>
+				<span th:unless="${currentPage < totalPages}">Next</span>
+			</div>
+
+			<div class="col-sm-1">
+				<a th:if="${currentPage < totalPages}"
+				   th:href="@{'/page/' + ${totalPages} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Last</a>
+				<span th:unless="${currentPage < totalPages}">Last</span>
+			</div>
+		</div>
+	</div>
+</div>
+<ul>
+	<li sec:authorize="isAuthenticated()" class="btn btn-primary">
+		<a th:href="@{/logout}"><i class="fa fa-circle-o"></i> Logout</a>
+	</li>
+</ul>
+</body>
+<style>
+	body {
+		background-color: #66512c;
+	}
+
+	ul {
+		list-style: none;
+		display: flex;
+		justify-content: flex-end;
+		margin: 0;
+		padding: 20px;
+		position: absolute;
+		top: 0;
+		right: 30px;
+	}
+
+	ul li {
+		margin-left: 2px;
+	}
+
+	ul li a {
+		color: white;
+	}
+
+	ul li a:hover {
+		color: white;
+		text-decoration: none;
+	}
+
+</style>
+</html>
